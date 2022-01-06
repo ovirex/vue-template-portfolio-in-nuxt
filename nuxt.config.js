@@ -3,9 +3,9 @@ import webpack from 'webpack'
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-  router: {
-    base: '/vue-template-portfolio-in-nuxt/',
-  },
+  // router: {
+  //   base: '/vue-template-portfolio-in-nuxt/',
+  // },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'prueba-nuxt',
