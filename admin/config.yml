@@ -1,15 +1,20 @@
 backend:
   name: git-gateway
-  branch: gh-pages
+  branch: master
 
-media_folder: assets/img
-public_folder: /img
+# media_folder: 'assets/img'
+# public_folder: '/img'
+
+media_library:
+  name: uploadcare
+  config:
+    publicKey: 93c2788ba01bd03e49b4 # replace with your Public API key or use for testing env only
 
 collections:
   - name: 'projects'
     label: 'Projects'
     folder: 'content/projects'
-    format: 'frontmatter'
+    format: 'json-frontmatter'
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     editor:
@@ -41,21 +46,38 @@ collections:
           widget: 'image',
           allow_multiple: false,
         }
-      - {
-          label: 'Project Images',
-          name: 'images',
-          widget: 'object',
-          fields:
-            - {
+      - label: 'Project Images'
+        name: 'images'
+        widget: 'object'
+        fields:
+          - {
               label: 'RRSS Images',
               name: 'rrss',
               widget: 'image',
-              allow_multiple: true,
-            },
-            - {
-              label: 'RRSS Images',
-              name: 'rrss',
-              widget: 'image',
-              allow_multiple: true,
+              media_library: { config: { multiple: true } },
+              required: false,
             }
-        }
+          - {
+              label: 'WEB Images',
+              name: 'web',
+              widget: 'image',
+              media_library: { config: { multiple: true } },
+              required: false,
+            }
+
+          # - {
+          #     label: 'RRSS Images',
+          #     name: 'rrss',
+          #     widget: 'list',
+          #     summary: '{{fields.image}}',
+          #     field: { label: 'Image', name: 'image', widget: 'image' },
+          #     required: false,
+          #   }
+          # - {
+          #     label: 'Web Images',
+          #     name: 'web',
+          #     widget: 'list',
+          #     summary: '{{fields.image}}',
+          #     field: { label: 'Image', name: 'image', widget: 'image' },
+          #     required: false,
+          #   }
