@@ -6,6 +6,19 @@ export default {
   // router: {
   //   base: '/vue-template-portfolio-in-nuxt/',
   // },
+  generate: {
+    routes(callback) {
+      this.$content('projects')
+        .fetch()
+        .then((res) => {
+          const routes = res.data.map((project) => {
+            return '/works/' + project.id
+          })
+          callback(null, routes)
+        })
+        .catch(callback)
+    },
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'prueba-nuxt',
