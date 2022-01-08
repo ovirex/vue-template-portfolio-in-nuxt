@@ -6,20 +6,41 @@ backend:
 # public_folder: '/img'
 
 media_library:
-  name: uploadcare
+  name: cloudinary
   config:
-    publicKey: 93c2788ba01bd03e49b4 # replace with your Public API key or use for testing env only
+    cloud_name: dttbfql17
+    api_key: 211247722988129
+
+# media_library:
+#   name: uploadcare
+#   config:
+#     publicKey: 93c2788ba01bd03e49b4 # replace with your Public API key or use for testing env only
 
 collections:
   - name: 'projects'
     label: 'Projects'
     folder: 'content/projects'
-    format: 'json-frontmatter'
+    format: 'frontmatter'
     create: true
     slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
     editor:
       preview: false
     fields:
+      - {
+          label: ID,
+          name: id,
+
+          # Default widget name
+          widget: ncw-id,
+
+          # <Optional> If `true`, add timestamp, i.e post-1588747959991-dnfuHvOhP
+          # This can be used to sort collection by creation time
+          timestamp: false,
+
+          # <Optional> Hide the widget from UI
+          # Beware: We literally add `display: none` to the DOM node wrapping the input. It will break if netlifyCMS's editor pane structure changes.
+          hidden: false,
+        }
       - { label: 'Title', name: 'title', widget: 'string' }
       - {
           label: 'Short Descripcion',
