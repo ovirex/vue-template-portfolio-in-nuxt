@@ -72,6 +72,9 @@ export default {
   data: () => ({
     lightbox: {},
   }),
+  mounted() {
+    this.addGLightbox()
+  },
   updated() {
     this.addGLightbox()
   },
