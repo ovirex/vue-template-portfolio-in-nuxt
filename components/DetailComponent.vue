@@ -24,10 +24,9 @@ import LightboxComponent from './detail-components/LightboxComponent.vue'
 export default {
   name: 'DetailComponent',
   components: { LightboxComponent },
-  // props: ['id'],
   data: () => ({
     projectData: {
-      id: 0,
+      id: null,
       title: '',
       short_description: '',
       long_description: '',
@@ -39,24 +38,17 @@ export default {
       },
     },
   }),
-  created() {
-    this.fetchProject()
-  },
-  methods: {
-    fetchProject() {
-      fetch('/projects.json')
-        .then((data) => data.json())
-        .then((projectsJson) => {
-          const projectInfo = projectsJson.projects.filter(
-            (project) => project.id === parseInt(this.$route.params.id)
-          )
-          this.projectData = projectInfo[0]
-        })
-        .catch((err) => {
-          // eslint-disable-next-line no-console
-          console.error(err)
-        })
-    },
+  async fetch() {
+    try {
+      const projectsFetched = await this.$content('projects').fetch()
+      const projectToShow = projectsFetched.filter(
+        (project) => project.id === this.$route.params.id
+      )
+      this.projectData = projectToShow[0]
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err)
+    }
   },
 }
 </script>

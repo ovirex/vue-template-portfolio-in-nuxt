@@ -8,8 +8,6 @@
   </div>
 </template>
 <script>
-// import Masonry from 'masonry-layout'
-
 export default {
   name: 'MasonryWrapper',
   data: () => ({
@@ -17,6 +15,16 @@ export default {
     projectsToShow: [],
     path: '',
   }),
+  async fetch() {
+    try {
+      this.projects = await this.$content('projects').fetch()
+      this.filterProjectsAccordingToPath()
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err)
+    }
+  },
+
   watch: {
     $route(to, from) {
       // react to route changes...
@@ -25,12 +33,10 @@ export default {
     },
   },
 
-  mounted() {
+  updated() {
     this.masonryDistribution(true)
   },
-  created() {
-    this.filterProjectsAccordingToPath()
-  },
+
   methods: {
     masonryDistribution(reload = false) {
       $(document).ready(function () {
@@ -56,19 +62,9 @@ export default {
         }
       })
     },
-    async fetchProjects() {
-      await fetch('/projects.json')
-        .then((data) => data.json())
-        .then((projectsJson) => {
-          this.projects = [...projectsJson.projects]
-        })
-        .catch((err) => {
-          return err
-        })
-    },
-    async filterProjectsAccordingToPath() {
-      await this.fetchProjects()
 
+    // eslint-disable-next-line require-await
+    filterProjectsAccordingToPath() {
       this.path = this.$route.path.replace('/', '')
 
       const tag = this.capitalizePathName(this.path)

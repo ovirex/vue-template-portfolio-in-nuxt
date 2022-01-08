@@ -32,11 +32,7 @@
           </div>
           <!-- End of Loading spinner -->
 
-          <img
-            class="img-fluid"
-            :src="require(`~/assets/img${project.thumbnail}`)"
-            alt=""
-          />
+          <img class="img-fluid" :src="project.thumbnail" alt="" />
           <p
             class="
               mb-0
