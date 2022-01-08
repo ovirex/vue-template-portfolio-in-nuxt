@@ -7,16 +7,11 @@ export default {
   //   base: '/vue-template-portfolio-in-nuxt/',
   // },
   generate: {
-    routes(callback) {
-      this.$content('projects')
-        .fetch()
-        .then((res) => {
-          const routes = res.data.map((project) => {
-            return '/works/' + project.id
-          })
-          callback(null, routes)
-        })
-        .catch(callback)
+    async routes() {
+      const { $content } = require('@nuxt/content')
+      const files = await $content({ deep: true }).only(['path']).fetch()
+
+      return files.map((file) => (file.path === '/projects' ? '/' : file.path))
     },
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
