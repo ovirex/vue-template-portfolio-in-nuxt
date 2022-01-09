@@ -4,14 +4,20 @@ export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
   // router: {
-  //   base: '/vue-template-portfolio-in-nuxt/',
+  //   // base: '/vue-template-portfolio-in-nuxt/',
+  //   // mode: 'hash',
   // },
   generate: {
     async routes() {
       const { $content } = require('@nuxt/content')
-      const files = await $content({ deep: true }).only(['path']).fetch()
-
-      return files.map((file) => (file.path === '/projects' ? '/' : file.path))
+      const files = await $content('/projects', { deep: true })
+        // .only(['path'])
+        .fetch()
+      // eslint-disable-next-line no-console
+      console.error(files)
+      return files.map((file) =>
+        file.path === '/index' ? '/' : `/works/${file.id}`
+      )
     },
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
