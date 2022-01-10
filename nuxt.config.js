@@ -3,10 +3,9 @@ import webpack from 'webpack'
 export default {
   // Target: https://go.nuxtjs.dev/config-target
   target: 'static',
-  // router: {
-  //   // base: '/vue-template-portfolio-in-nuxt/',
-  //   // mode: 'hash',
-  // },
+  router: {
+    base: '/vue-template-portfolio-in-nuxt/',
+  },
   generate: {
     async routes() {
       const { $content } = require('@nuxt/content')
