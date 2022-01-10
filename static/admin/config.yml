@@ -47,11 +47,7 @@ collections:
           name: 'short_description',
           widget: 'string',
         }
-      - {
-          label: 'Long Description',
-          name: 'long_description',
-          widget: 'string',
-        }
+      - { label: 'Long Description', name: 'long_description', widget: 'text' }
       - {
           label: 'Tags',
           name: 'tags',
