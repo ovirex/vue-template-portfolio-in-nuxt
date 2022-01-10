@@ -10,11 +10,8 @@ export default {
   generate: {
     async routes() {
       const { $content } = require('@nuxt/content')
-      const files = await $content('/projects', { deep: true })
-        // .only(['path'])
-        .fetch()
-      // eslint-disable-next-line no-console
-      console.error(files)
+      const files = await $content('/projects', { deep: true }).fetch()
+
       return files.map((file) =>
         file.path === '/index' ? '/' : `/works/${file.id}`
       )
