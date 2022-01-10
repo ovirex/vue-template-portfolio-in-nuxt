@@ -1,8 +1,6 @@
 <template>
   <div>
-    <client-only>
-      <masonry-wrapper></masonry-wrapper>
-    </client-only>
+    <masonry-wrapper></masonry-wrapper>
   </div>
 </template>
 
