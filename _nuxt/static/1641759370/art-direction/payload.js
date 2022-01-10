@@ -1,1 +1,0 @@
-__NUXT_JSONP__("/art-direction", {data:[{}],fetch:{},mutations:void 0});
