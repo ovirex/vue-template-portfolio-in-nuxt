@@ -71,5 +71,37 @@ export default {
       required: true,
     },
   },
+  mounted() {
+    this.masonryDistribution()
+  },
+  updated() {
+    this.masonryDistribution(true)
+  },
+  methods: {
+    masonryDistribution(reload = false) {
+      $(document).ready(function () {
+        const $grid = $('.masonry-wrapper')
+        if (!reload) {
+          $grid.masonry({
+            itemSelector: '.grid-item',
+            columnWidth: '.grid-item',
+            percentPosition: true,
+            transitionDuration: 300,
+          })
+          $grid.imagesLoaded().progress(function (imgLoad, image) {
+            const $item = $(image.img).parent()
+            $item.removeClass('is-loading')
+            if (!image.isLoaded) {
+              $item.addClass('is-broken')
+            }
+
+            $grid.masonry()
+          })
+        } else {
+          $grid.masonry('reloadItems')
+        }
+      })
+    },
+  },
 }
 </script>

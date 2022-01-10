@@ -1,10 +1,12 @@
 <template>
   <div class="masonry-wrapper">
-    <grid-item
-      v-for="project in projectsToShow"
-      :key="project.id"
-      :project="project"
-    ></grid-item>
+    <client-only>
+      <grid-item
+        v-for="project in projectsToShow"
+        :key="project.id"
+        :project="project"
+      ></grid-item>
+    </client-only>
   </div>
 </template>
 <script>
@@ -33,37 +35,7 @@ export default {
     },
   },
 
-  updated() {
-    this.masonryDistribution(true)
-  },
-
   methods: {
-    masonryDistribution(reload = false) {
-      $(document).ready(function () {
-        const $grid = $('.masonry-wrapper')
-        if (!reload) {
-          $grid.masonry({
-            itemSelector: '.grid-item',
-            columnWidth: '.grid-item',
-            percentPosition: true,
-            transitionDuration: 300,
-          })
-          $grid.imagesLoaded().progress(function (imgLoad, image) {
-            const $item = $(image.img).parent()
-            $item.removeClass('is-loading')
-            if (!image.isLoaded) {
-              $item.addClass('is-broken')
-            }
-
-            $grid.masonry()
-          })
-        } else {
-          $grid.masonry('reloadItems')
-        }
-      })
-    },
-
-    // eslint-disable-next-line require-await
     filterProjectsAccordingToPath() {
       this.path = this.$route.path.replace('/', '')
 
@@ -76,12 +48,11 @@ export default {
           return project.tags.includes(tag)
         })
       }
-      this.masonryDistribution()
     },
     capitalizePathName(path) {
       /**
        * This function make the current path to have a format similar to the
-       * Strings in the tags Array of the projects.json
+       * Strings in the tags Array of the project
        */
       if (path === '') {
         return null
