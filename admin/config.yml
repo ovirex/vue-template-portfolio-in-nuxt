@@ -1,5 +1,6 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: ovirex/vue-template-portfolio-in-nuxt
   branch: master
 
 # media_folder: 'assets/img'
