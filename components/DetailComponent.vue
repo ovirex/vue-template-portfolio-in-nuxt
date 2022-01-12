@@ -9,8 +9,7 @@
     </div>
     <div class="row mb-5">
       <lightbox-component
-        :title="projectData.title"
-        :images="projectData.images"
+        :images-data="projectData.project_images"
       ></lightbox-component>
       <detail-description
         :desc="projectData.long_description"
@@ -32,10 +31,7 @@ export default {
       long_description: '',
       tags: [],
       thumbnail: '',
-      images: {
-        web: [],
-        rrss: [],
-      },
+      project_images: [],
     },
   }),
   async fetch() {

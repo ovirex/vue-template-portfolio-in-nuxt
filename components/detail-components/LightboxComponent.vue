@@ -1,60 +1,59 @@
 <template>
   <div class="col-lg-7 project-images">
-    <div v-if="images.hasOwnProperty('rrss')">
-      <h3>Social Media Design</h3>
-      <a
-        v-for="(image, index) in images.rrss"
-        :key="index"
-        :href="image"
-        data-gallery="rrss-gallery"
-        class="glightbox is-loading"
-      >
-        <img class="img-fluid mb-4" :src="image" alt="image" />
-        <!-- Loading spinner -->
-        <div class="lds-spinner">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        <!-- End of Loading spinner -->
-      </a>
-    </div>
-    <div v-if="images.hasOwnProperty('web')">
-      <h3>Web Design</h3>
-      <a
-        v-for="(image, index) in images.web"
-        :key="index"
-        :href="image"
-        data-gallery="web-gallery"
-        class="glightbox is-loading"
-      >
-        <img class="img-fluid mb-4" :src="image" alt="image" />
-        <!-- Loading spinner -->
-        <div class="lds-spinner">
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-          <div></div>
-        </div>
-        <!-- End of Loading spinner -->
-      </a>
+    <div v-for="(data, index) in imagesData" :key="index">
+      <h3>{{ data.title }}</h3>
+      <div v-if="Array.isArray(data.images)">
+        <a
+          v-for="(image, indexImg) in data.images"
+          :key="indexImg"
+          :href="image"
+          :data-gallery="`${joinTitle(data.title)}-gallery`"
+          class="glightbox is-loading"
+        >
+          <img class="img-fluid mb-4" :src="image" alt="image" />
+          <!-- Loading spinner -->
+          <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <!-- End of Loading spinner -->
+        </a>
+      </div>
+      <div v-else>
+        <a
+          :href="data.images"
+          :data-gallery="`${joinTitle(data.title)}-gallery`"
+          class="glightbox is-loading"
+        >
+          <img class="img-fluid mb-4" :src="data.images" alt="image" />
+          <!-- Loading spinner -->
+          <div class="lds-spinner">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+          <!-- End of Loading spinner -->
+        </a>
+      </div>
     </div>
   </div>
 </template>
@@ -63,10 +62,16 @@
 export default {
   name: 'LightboxComponent',
   props: {
-    /* eslint-disable vue/require-default-prop */
-    title: { type: String },
-    images: {
-      type: Object,
+    imagesData: {
+      type: Array,
+      default() {
+        return [
+          {
+            title: 'No images to display',
+            images: '',
+          },
+        ]
+      },
     },
   },
   data: () => ({
@@ -101,6 +106,9 @@ export default {
             $item.addClass('is-broken')
           }
         })
+    },
+    joinTitle(title) {
+      return title.toLowerCase().split(' ').join('-')
     },
   },
 }
