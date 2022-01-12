@@ -3,19 +3,11 @@ backend:
   repo: ovirex/vue-template-portfolio-in-nuxt
   branch: master
 
-# media_folder: 'assets/img'
-# public_folder: '/img'
-
 media_library:
   name: cloudinary
   config:
     cloud_name: dttbfql17
     api_key: 211247722988129
-
-# media_library:
-#   name: uploadcare
-#   config:
-#     publicKey: 93c2788ba01bd03e49b4 # replace with your Public API key or use for testing env only
 
 collections:
   - name: 'projects'
@@ -65,37 +57,20 @@ collections:
           allow_multiple: false,
         }
       - label: 'Project Images'
-        name: 'images'
-        widget: 'object'
+        name: 'project_images'
+        widget: 'list'
         fields:
           - {
-              label: 'RRSS Images',
-              name: 'rrss',
-              widget: 'image',
-              media_library: { config: { multiple: true } },
-              required: false,
+              label: 'Title',
+              name: 'title',
+              widget: 'string',
+              required: true,
+              hint: 'The title that will be display above the group of images',
             }
           - {
-              label: 'WEB Images',
-              name: 'web',
+              label: 'Images',
+              name: 'images',
               widget: 'image',
               media_library: { config: { multiple: true } },
-              required: false,
+              required: true,
             }
-
-          # - {
-          #     label: 'RRSS Images',
-          #     name: 'rrss',
-          #     widget: 'list',
-          #     summary: '{{fields.image}}',
-          #     field: { label: 'Image', name: 'image', widget: 'image' },
-          #     required: false,
-          #   }
-          # - {
-          #     label: 'Web Images',
-          #     name: 'web',
-          #     widget: 'list',
-          #     summary: '{{fields.image}}',
-          #     field: { label: 'Image', name: 'image', widget: 'image' },
-          #     required: false,
-          #   }
